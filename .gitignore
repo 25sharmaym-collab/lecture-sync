@@ -1,0 +1,35 @@
+# Node
+node_modules/
+.next/
+out/
+dist/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Local data
+data/
+tmp/
+uploads/
+
+# Test artifacts
+playwright-report/
+test-results/
+coverage/
+htmlcov/
