@@ -1,10 +1,11 @@
 services:
   postgres:
     image: postgres:16-alpine
+    container_name: lecturesync-postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-lecturesync}
       POSTGRES_USER: ${POSTGRES_USER:-lecturesync}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lecturesync_dev_password}
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
@@ -14,9 +15,15 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+      start_period: 10s
+    networks:
+      - lecturesync-network
+    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
+    container_name: lecturesync-redis
+    command: redis-server --appendonly yes
     ports:
       - "${REDIS_PORT:-6379}:6379"
     volumes:
@@ -26,7 +33,15 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+      start_period: 5s
+    networks:
+      - lecturesync-network
+    restart: unless-stopped
 
 volumes:
   postgres_data:
   redis_data:
+
+networks:
+  lecturesync-network:
+    driver: bridge
