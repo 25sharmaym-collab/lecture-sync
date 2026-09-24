@@ -15,11 +15,12 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000"
     sendgrid_api_key: str | None = None
     sendgrid_from_email: str = "noreply@example.com"
+    max_upload_mb: int = 1024
+    storage_dir: str = "./data"
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     @property
     def cors_origin_list(self) -> list[str]:
         return [x.strip() for x in self.cors_origins.split(",") if x.strip()]
-
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
