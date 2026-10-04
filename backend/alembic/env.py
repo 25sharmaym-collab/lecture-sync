@@ -5,7 +5,7 @@ from app.core.config import get_settings
 from app.core.db import Base
 from app.models import User,Lecture,Token
 config=context.config; config.set_main_option('sqlalchemy.url',get_settings().database_url)
-if config.config_file_name: fileConfig(config.config_file_name)
+if config.config_file_name and config.get_section(config.config_ini_section).get('formatters') is not None: fileConfig(config.config_file_name)
 target_metadata=Base.metadata
 def run_migrations_offline():
     context.configure(url=get_settings().database_url,target_metadata=target_metadata,literal_binds=True,compare_type=True)
