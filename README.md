@@ -9,8 +9,9 @@ Synchronize what the professor says with what the professor shows.
 - [x] Milestone 2: Database models & migrations
 - [x] Milestone 3: Authentication & CRUD endpoints
 - [x] Milestone 4: Email verification, refresh tokens, rate limiting
+- [x] CI verification: backend migrations/tests + frontend production build
 
-**Current**: Production-ready authentication layer complete. Ready for Milestone 5 (file upload & media processing).
+**Current**: Authentication and core lecture CRUD are implemented. CI now verifies the backend and frontend builds. Milestone 5 (file upload & media processing) is next.
 
 ## Tech Stack
 
@@ -198,35 +199,18 @@ curl -X POST http://localhost:8000/auth/register \
 
 - **[Development Guide](docs/development.md)** - Setup, Docker commands, troubleshooting
 - **[Milestone 1: Docker Infrastructure](docs/development.md#docker-development-infrastructure)** - PostgreSQL, Redis, volumes, networking
-- **[Milestone 2: Database Models](docs/milestone2.md)** - ORM models, migrations, schema
-- **[Milestone 3: Authentication & CRUD](docs/milestone3.md)** - JWT, endpoints, access control
-- **[Milestone 4: Email & Tokens](docs/milestone4.md)** - Email verification, refresh tokens, password reset
+- **[Milestone 2 Summary](MILESTONE2_SUMMARY.txt)** - ORM models and migrations
+- **[Milestone 3 Summary](MILESTONE3_SUMMARY.txt)** - Authentication and CRUD
+- **[Milestone 4 Summary](MILESTONE4_SUMMARY.txt)** - Email verification, refresh tokens, and rate limiting
 - **[API Quick Start](API_QUICKSTART.md)** - cURL examples, workflows
 - **[Deployment Ready](DEPLOYMENT_READY.md)** - Production checklist
 
-## Test Coverage
+## Automated Verification
 
-```
-Total: 30+ tests passing ✅
-
-Module                Tests  Status
-────────────────────────────────────
-User models           2      ✅
-Lecture models        2      ✅
-Password service      2      ✅
-Token service         4      ✅
-User service          5      ✅
-Email service         2      ✅
-Token DB service      6      ✅
-Lecture service       6      ✅
-────────────────────────────────────
-TOTAL                30+     ✅
-```
-
-Run tests:
+CI runs the backend migration suite and pytest, plus a production frontend build. Run locally with:
 ```bash
 cd backend
-pytest tests/test_services.py tests/test_milestone4.py -v
+pytest -q
 ```
 
 ## Environment Setup
@@ -343,4 +327,4 @@ MIT (or your chosen license)
 
 ---
 
-**Status**: Production-ready authentication layer. 30+ tests passing. Ready for file upload & media processing (Milestone 5).
+**Status**: Core authentication and lecture-management foundation implemented and CI-verified. File upload and media processing remain future milestones.
