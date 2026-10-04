@@ -40,7 +40,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: python -c "import socket; socket.create_connection(('localhost', 5432), 10).close()"\n      - run: alembic upgrade head
+      - run: python -c "import socket; socket.create_connection(('localhost', 5432), 10).close()"
+      - run: alembic upgrade head
       - run: pytest -q
 
   frontend:
